@@ -4,3 +4,10 @@ export async function hashPassword(password: string) {
   const hashedPassword = bcrypt.hash(password, salt);
   return hashedPassword;
 }
+
+export async function checkHashPassword(
+  password: string,
+  hashedPassword: string
+) {
+  return await bcrypt.compare(password, hashedPassword);
+}
