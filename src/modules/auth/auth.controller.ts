@@ -9,8 +9,9 @@ import { SignUpto } from './dtos/sign-up.dto';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+  
   @Post()
   signUp(@Body() signUpDto: SignUpto) {
-    
+    return this.signUp(signUpDto);
   }
 }
