@@ -7,6 +7,7 @@ import {
   NotFoundMessages,
   PublicMessages,
 } from 'src/common/enums/messages.enum';
+import { UpdateCategoryDto } from './dtos/update-category.dto';
 
 @Injectable()
 export class CategoryService {
@@ -31,8 +32,15 @@ export class CategoryService {
   async findOneById(id: number) {
     const category = await this.categoryRepository.findOneBy({ id });
     if (category) {
-      return { category };
+      return category;
     }
     throw new NotFoundException(NotFoundMessages.CategoryNotFound);
+  }
+
+  async updateOne(updateCategoryDto: UpdateCategoryDto, id: number) {
+    await this.findOneById(id);
+    const { description, name, slug } = updateCategoryDto;
+    await this.categoryRepository.update({ id }, { description, name, slug });
+    return { message: PublicMessages.Updated };
   }
 }
