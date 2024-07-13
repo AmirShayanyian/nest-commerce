@@ -16,11 +16,14 @@ import {
   PublicMessages,
   ServerErrorMessages,
 } from 'src/common/enums/messages.enum';
+import { TokenService } from './token.service';
 
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectRepository(UserEntity) private userRepository: Repository<UserEntity>
+    @InjectRepository(UserEntity)
+    private userRepository: Repository<UserEntity>,
+    private tokenService: TokenService
   ) {}
 
   async signUp(signUpDto: SignUpto) {
@@ -44,8 +47,12 @@ export class AuthService {
     const user = await this.checkExistByUsername(username);
     if (user && user?.password) {
       if (await checkHashPassword(password, user.password)) {
+        const token = await this.tokenService.createAccessToken({
+          userId: user.id,
+        });
         return {
           message: PublicMessages.LoggedIn,
+          token,
         };
       }
       throw new BadRequestException(BadRequestMessages.LoginFailed);
