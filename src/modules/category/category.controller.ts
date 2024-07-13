@@ -23,6 +23,7 @@ import { SkipAuth } from 'src/common/decorators/skip-auth.decorator';
 export class CategoryController {
   constructor(private categoryService: CategoryService) {}
 
+  @SkipAuth()
   @Post('/')
   @ApiConsumes(SwaggerConsumer.Json, SwaggerConsumer.UrlEncoded)
   create(@Body() createCategoryDto: CreateCategoryDto) {

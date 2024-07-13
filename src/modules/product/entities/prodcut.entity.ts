@@ -27,6 +27,9 @@ export class ProductEntity extends BaseEntity {
   @Column()
   price: number;
 
+  @Column()
+  categoryId: number;
+
   @ManyToOne(() => CategoryEntity, (category) => category.products, {
     onDelete: 'CASCADE',
   })

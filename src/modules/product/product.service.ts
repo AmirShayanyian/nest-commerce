@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ProductEntity } from './entities/prodcut.entity';
 import { Repository } from 'typeorm';
 import { CreateProductDto } from './dtos/create-product.dto';
+import { PublicMessages } from 'src/common/enums/messages.enum';
 
 @Injectable()
 export class ProductService {
@@ -12,13 +13,18 @@ export class ProductService {
   ) {}
 
   async create(productDto: CreateProductDto) {
-    const { title, description, price, summary } = productDto;
-    const product =  this.productRepository.create({
+    const { title, description, price, summary, categoryId } = productDto;
+    const product = this.productRepository.create({
       title,
       description,
       price,
       summary,
+      categoryId,
     });
     await this.productRepository.save(product);
+
+    return {
+      message: PublicMessages.Created,
+    };
   }
 }
