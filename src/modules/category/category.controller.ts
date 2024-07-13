@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ControllerName } from 'src/common/enums/controller.enum';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dtos/create-category.dto';
@@ -14,5 +14,10 @@ export class CategoryController {
   @ApiConsumes(SwaggerConsumer.Json, SwaggerConsumer.UrlEncoded)
   create(@Body() createCategoryDto: CreateCategoryDto) {
     return this.categoryService.create(createCategoryDto);
+  }
+
+  @Get('/')
+  find() {
+    return this.categoryService.find();
   }
 }

@@ -22,4 +22,7 @@ export class CategoryService {
     await this.categoryRepository.save(category);
     return { category, message: PublicMessages.Created };
   }
+  async find() {
+    return await this.categoryRepository.find();
+  }
 }
