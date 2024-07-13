@@ -43,4 +43,10 @@ export class CategoryService {
     await this.categoryRepository.update({ id }, { description, name, slug });
     return { message: PublicMessages.Updated };
   }
+
+  async remove(id: number) {
+    await this.findOneById(id);
+    await this.categoryRepository.delete({ id });
+    return { message: PublicMessages.Deleted };
+  }
 }

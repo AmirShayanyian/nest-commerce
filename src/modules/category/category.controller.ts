@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { ControllerName } from 'src/common/enums/controller.enum';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dtos/create-category.dto';
@@ -33,5 +41,10 @@ export class CategoryController {
     @Body() updateCategoryDto: UpdateCategoryDto
   ) {
     return this.categoryService.updateOne(updateCategoryDto, id);
+  }
+
+  @Delete('/:id')
+  remove(@Param('id') id: number) {
+    return this.categoryService.remove(id)
   }
 }
