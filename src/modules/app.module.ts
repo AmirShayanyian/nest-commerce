@@ -5,6 +5,7 @@ import { join } from 'path';
 import { TypeOrmConfigs } from 'src/configs/typeorm.config';
 import { AuthModule } from './auth/auth.module';
 import { CategoryModule } from './category/category.module';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -17,9 +18,9 @@ import { CategoryModule } from './category/category.module';
       envFilePath: join(process.cwd(), '.env'),
     }),
     AuthModule,
-    CategoryModule
+    CategoryModule,
   ],
   controllers: [],
-  providers: [TypeOrmConfigs],
+  providers: [TypeOrmConfigs, JwtService],
 })
 export class AppModule {}

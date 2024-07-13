@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { ControllerName } from 'src/common/enums/controller.enum';
 import { CategoryService } from './category.service';
@@ -14,8 +15,10 @@ import { CreateCategoryDto } from './dtos/create-category.dto';
 import { ApiConsumes, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { SwaggerConsumer } from 'src/common/enums/swagger-consumer.enum';
 import { UpdateCategoryDto } from './dtos/update-category.dto';
+import { AuthGuards } from '../auth/guards/auth.guards';
 
 @ApiTags('Category')
+@UseGuards(AuthGuards)
 @Controller(ControllerName.Category)
 export class CategoryController {
   constructor(private categoryService: CategoryService) {}

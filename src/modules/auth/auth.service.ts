@@ -3,6 +3,7 @@ import {
   Injectable,
   InternalServerErrorException,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { SignUpto } from './dtos/sign-up.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -11,6 +12,7 @@ import { Repository } from 'typeorm';
 import { checkHashPassword, hashPassword } from 'src/common/utils/hash.util';
 import { SignInDto } from './dtos/sign-in.dto';
 import {
+  AuthMessages,
   BadRequestMessages,
   NotFoundMessages,
   PublicMessages,
@@ -67,6 +69,12 @@ export class AuthService {
     if (!user) {
       throw new NotFoundException(NotFoundMessages.UserNotFound);
     }
+    return user;
+  }
+  async validateAccessToken(token: string) {
+    const { userId } = this.tokenService.verifyAccessToken(token);
+    const user = await this.userRepository.findOneBy({ id: userId });
+    if (!user) throw new UnauthorizedException(AuthMessages.LoginRequired);
     return user;
   }
 }

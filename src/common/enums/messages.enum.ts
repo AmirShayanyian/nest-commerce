@@ -24,4 +24,5 @@ export enum PublicMessages {
 
 export enum AuthMessages {
   TryAgain = 'لطفا دوباره تلاش کنید',
+  LoginRequired = 'دوباره وارد شوید ',
 }
