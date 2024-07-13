@@ -11,7 +11,7 @@ export class AuthService {
     @InjectRepository(UserEntity) private userRepository: Repository<UserEntity>
   ) {}
 
-  async signIn(signUpDto: SignUpto) {
+  async signUp(signUpDto: SignUpto) {
     let { username, first_name, last_name, password, email } = signUpDto;
     password = await hashPassword(password);
     const user = await this.userRepository.create({
