@@ -1,15 +1,15 @@
 import { IsEmail, IsNotEmpty, IsString, Length } from 'class-validator';
-import { SignInValidation } from 'src/common/enums/messages.enum';
+import { SignUpValidation } from 'src/common/enums/messages.enum';
 
-export class SignInDto {
-  @IsNotEmpty({ message: SignInValidation.UsernameNotEmpty })
+export class SignUpto {
+  @IsNotEmpty({ message: SignUpValidation.UsernameNotEmpty })
   @IsString()
-  @Length(3, 25, { message: SignInValidation.UsernameLength })
+  @Length(3, 25, { message: SignUpValidation.UsernameLength })
   username: string;
 
-  @IsNotEmpty({ message: SignInValidation.PasswordNotEmpty })
+  @IsNotEmpty({ message: SignUpValidation.PasswordNotEmpty })
   @IsString()
-  @Length(8, 32, { message: SignInValidation.PasswordLength })
+  @Length(8, 32, { message: SignUpValidation.PasswordLength })
   password: string;
 
   @IsString()
