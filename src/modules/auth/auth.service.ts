@@ -13,6 +13,7 @@ import { SignInDto } from './dtos/sign-in.dto';
 import {
   BadRequestMessages,
   NotFoundMessages,
+  PublicMessages,
   ServerErrorMessages,
 } from 'src/common/enums/messages.enum';
 
@@ -33,7 +34,9 @@ export class AuthService {
       email,
     });
     await this.userRepository.save(user);
-    return { message: 'Created' };
+    return {
+      message: PublicMessages.Created,
+    };
   }
 
   async signIn(signInDto: SignInDto) {
@@ -42,7 +45,7 @@ export class AuthService {
     if (user && user?.password) {
       if (await checkHashPassword(password, user.password)) {
         return {
-          message: 'Logged In successfully',
+          message: PublicMessages.LoggedIn,
         };
       }
       throw new BadRequestException(BadRequestMessages.LoginFailed);

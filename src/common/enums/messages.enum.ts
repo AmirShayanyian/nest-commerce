@@ -13,3 +13,10 @@ export enum BadRequestMessages {
 export enum ServerErrorMessages {
   SomethingWentWrong = 'مشکلی در ارتباطات سرور بوجود آمد دوباره تلاش کنید',
 }
+
+export enum PublicMessages {
+  Created = 'با موفقیت ایجاد شد',
+  Updated = 'با موفقیت به روز رسانی شد',
+  Deleted = 'با موفقیت حذف شد',
+  LoggedIn = 'با موفقیت وارد شدید ',
+}
