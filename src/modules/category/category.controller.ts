@@ -6,11 +6,12 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { ControllerName } from 'src/common/enums/controller.enum';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dtos/create-category.dto';
-import { ApiConsumes, ApiTags } from '@nestjs/swagger';
+import { ApiConsumes, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { SwaggerConsumer } from 'src/common/enums/swagger-consumer.enum';
 import { UpdateCategoryDto } from './dtos/update-category.dto';
 
@@ -30,9 +31,15 @@ export class CategoryController {
     return this.categoryService.find();
   }
 
-  @Get('/:id')
+  @Get('/by-id/:id')
   findOne(@Param('id') id: number) {
     return this.categoryService.findOneById(id);
+  }
+
+  @Get('/by-slug/:slug')
+  @ApiParam({ name: 'slug' })
+  findBySlug(@Param('slug') slug: string) {
+    return this.categoryService.findOneBySlug(slug);
   }
 
   @Patch('/:id')
@@ -45,6 +52,6 @@ export class CategoryController {
 
   @Delete('/:id')
   remove(@Param('id') id: number) {
-    return this.categoryService.remove(id)
+    return this.categoryService.remove(id);
   }
 }

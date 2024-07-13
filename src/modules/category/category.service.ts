@@ -49,4 +49,16 @@ export class CategoryService {
     await this.categoryRepository.delete({ id });
     return { message: PublicMessages.Deleted };
   }
+
+  async findOneBySlug(slug: string) {
+    const category = await this.categoryRepository.find({
+      where: { slug },
+      order: {
+        id: 'ASC',
+      },
+    });
+    if (category)
+      throw new NotFoundException(NotFoundMessages.CategoryNotFound);
+    return category;
+  }
 }
