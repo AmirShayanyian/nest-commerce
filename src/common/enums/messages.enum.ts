@@ -20,3 +20,7 @@ export enum PublicMessages {
   Deleted = 'با موفقیت حذف شد',
   LoggedIn = 'با موفقیت وارد شدید ',
 }
+
+export enum AuthMessages {
+  TryAgain = 'لطفا دوباره تلاش کنید',
+}

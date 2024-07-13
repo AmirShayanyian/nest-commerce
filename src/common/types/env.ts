@@ -11,5 +11,8 @@ namespace NodeJS {
     DB_DATABASE: string;
     DB_SYNC: boolean;
     DB_AUTO_LOAD: boolean;
+
+    //Secrets
+    ACCESS_TOKEN_SECRET: string;
   }
 }
