@@ -1,9 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CategoryEntity } from './entities/category.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateCategoryDto } from './dtos/create-category.dto';
-import { PublicMessages } from 'src/common/enums/messages.enum';
+import {
+  NotFoundMessages,
+  PublicMessages,
+} from 'src/common/enums/messages.enum';
 
 @Injectable()
 export class CategoryService {
@@ -24,5 +27,12 @@ export class CategoryService {
   }
   async find() {
     return await this.categoryRepository.find();
+  }
+  async findOneById(id: number) {
+    const category = await this.categoryRepository.findOneBy({ id });
+    if (category) {
+      return { category };
+    }
+    throw new NotFoundException(NotFoundMessages.CategoryNotFound);
   }
 }

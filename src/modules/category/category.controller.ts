@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ControllerName } from 'src/common/enums/controller.enum';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dtos/create-category.dto';
@@ -19,5 +19,10 @@ export class CategoryController {
   @Get('/')
   find() {
     return this.categoryService.find();
+  }
+
+  @Get('/:id')
+  findOne(@Param('id') id: number) {
+    return this.categoryService.findOneById(id);
   }
 }
