@@ -7,9 +7,12 @@ import { AuthService } from '../auth/auth.service';
 import { JwtService } from '@nestjs/jwt';
 import { TokenService } from '../auth/token.service';
 import { UserEntity } from '../auth/entities/user.entity';
+import { ProductEntity } from '../product/entities/prodcut.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([CategoryEntity, UserEntity])],
+  imports: [
+    TypeOrmModule.forFeature([CategoryEntity, UserEntity, ProductEntity]),
+  ],
   controllers: [CategoryController],
   providers: [CategoryService, TokenService, AuthService, JwtService],
 })

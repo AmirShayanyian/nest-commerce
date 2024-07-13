@@ -1,5 +1,6 @@
 import { BaseEntity } from 'src/common/abstracts/base.entity';
 import { EntityName } from 'src/common/enums/entity.enum';
+import { ProductEntity } from 'src/modules/product/entities/prodcut.entity';
 import {
   Column,
   CreateDateColumn,
@@ -26,6 +27,9 @@ export class CategoryEntity extends BaseEntity {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @OneToMany(() => ProductEntity, (product) => product.category)
+  products: ProductEntity[];
 
   @OneToMany(() => CategoryEntity, (category) => category.parent)
   children: CategoryEntity[];
