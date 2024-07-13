@@ -15,7 +15,8 @@ import { CreateCategoryDto } from './dtos/create-category.dto';
 import { ApiConsumes, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { SwaggerConsumer } from 'src/common/enums/swagger-consumer.enum';
 import { UpdateCategoryDto } from './dtos/update-category.dto';
-import { AuthGuards } from '../auth/guards/auth.guards';
+import { AuthGuards } from '../auth/guards/auth.guard';
+import { SkipAuth } from 'src/common/decorators/skip-auth.decorator';
 
 @ApiTags('Category')
 @UseGuards(AuthGuards)
@@ -30,6 +31,7 @@ export class CategoryController {
   }
 
   @Get('/')
+  @SkipAuth()
   find() {
     return this.categoryService.find();
   }

@@ -18,7 +18,7 @@ export class CategoryEntity extends BaseEntity {
   @Column()
   description: string;
 
-  @Column()
+  @Column({ unique: true })
   slug: string;
 
   @CreateDateColumn()
