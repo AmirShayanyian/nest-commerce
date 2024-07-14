@@ -10,8 +10,8 @@ import { UpdateCategoryDto } from './dtos/update-category.dto';
 export class CategoryService {
   constructor(
     @InjectRepository(CategoryEntity)
-    private categoryRepository: Repository<CategoryEntity>,
-    private dataSource: DataSource
+    private categoryRepository: Repository<CategoryEntity>
+    // private dataSource: DataSource
   ) {}
 
   async create(createCategoryDto: CreateCategoryDto) {
@@ -43,12 +43,12 @@ export class CategoryService {
   }
 
   async remove(id: number) {
-    const queryRunner = this.dataSource.createQueryRunner();
-    await queryRunner.connect();
-    const mmd = await queryRunner.query(`DELETE FROM category WHERE id = ?`, [id]);
-    // await this.findOneById(id);
-    // await this.categoryRepository.delete({ id });
-    return { message: PublicMessages.Deleted, mmd };
+    // const queryRunner = this.dataSource.createQueryRunner();
+    // await queryRunner.connect();
+    // const mmd = await queryRunner.query(`DELETE FROM category WHERE id = ?`, [id]);
+    await this.findOneById(id);
+    await this.categoryRepository.delete({ id });
+    return { message: PublicMessages.Deleted };
   }
 
   async findOneBySlug(slug: string) {
