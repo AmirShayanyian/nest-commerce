@@ -54,7 +54,7 @@ export class CategoryController {
   ) {
     return this.categoryService.updateOne(updateCategoryDto, id);
   }
-
+  @SkipAuth()
   @Delete('/:id')
   remove(@Param('id') id: number) {
     return this.categoryService.remove(id);

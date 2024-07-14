@@ -1,19 +1,17 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CategoryEntity } from './entities/category.entity';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateCategoryDto } from './dtos/create-category.dto';
-import {
-  NotFoundMessages,
-  PublicMessages,
-} from 'src/common/enums/messages.enum';
+import { NotFoundMessages, PublicMessages } from 'src/common/enums/messages.enum';
 import { UpdateCategoryDto } from './dtos/update-category.dto';
 
 @Injectable()
 export class CategoryService {
   constructor(
     @InjectRepository(CategoryEntity)
-    private categoryRepository: Repository<CategoryEntity>
+    private categoryRepository: Repository<CategoryEntity>,
+    private dataSource: DataSource
   ) {}
 
   async create(createCategoryDto: CreateCategoryDto) {
@@ -45,9 +43,12 @@ export class CategoryService {
   }
 
   async remove(id: number) {
-    await this.findOneById(id);
-    await this.categoryRepository.delete({ id });
-    return { message: PublicMessages.Deleted };
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+    const mmd = await queryRunner.query(`DELETE FROM category WHERE id = ?`, [id]);
+    // await this.findOneById(id);
+    // await this.categoryRepository.delete({ id });
+    return { message: PublicMessages.Deleted, mmd };
   }
 
   async findOneBySlug(slug: string) {
@@ -57,8 +58,7 @@ export class CategoryService {
         id: 'ASC',
       },
     });
-    if (category)
-      throw new NotFoundException(NotFoundMessages.CategoryNotFound);
+    if (category) throw new NotFoundException(NotFoundMessages.CategoryNotFound);
     return category;
   }
 }
