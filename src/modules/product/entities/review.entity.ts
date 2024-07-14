@@ -1,9 +1,10 @@
 import { EntityName } from 'src/common/enums/entity.enum';
 import { Column, Entity, OneToMany, OneToOne } from 'typeorm';
 import { ProductEntity } from './prodcut.entity';
+import { BaseEntity } from 'src/common/abstracts/base.entity';
 
 @Entity(EntityName.ProductReview)
-export class ProductReviewEntity {
+export class ProductReviewEntity extends BaseEntity{
   @Column()
   text: string;
 
