@@ -2,13 +2,8 @@ import { ColdObservable } from 'rxjs/internal/testing/ColdObservable';
 import { BaseEntity } from 'src/common/abstracts/base.entity';
 import { EntityName } from 'src/common/enums/entity.enum';
 import { CategoryEntity } from 'src/modules/category/entities/category.entity';
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  ManyToOne,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, UpdateDateColumn } from 'typeorm';
+import { AttributeEntity } from './attribute.entity';
 
 @Entity(EntityName.Product)
 export class ProductEntity extends BaseEntity {
@@ -34,6 +29,10 @@ export class ProductEntity extends BaseEntity {
     onDelete: 'CASCADE',
   })
   category: CategoryEntity;
+
+  @OneToMany(() => AttributeEntity, (attribute) => attribute.product)
+  attributes: AttributeEntity[];
+
   @CreateDateColumn()
   created_at: Date;
 

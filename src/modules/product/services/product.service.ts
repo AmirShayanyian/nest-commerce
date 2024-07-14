@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ProductEntity } from './entities/prodcut.entity';
+import { ProductEntity } from '../entities/prodcut.entity';
 import { Repository } from 'typeorm';
-import { CreateProductDto } from './dtos/create-product.dto';
+import { CreateProductDto } from '../dtos/create-product.dto';
 import { PublicMessages } from 'src/common/enums/messages.enum';
 
 @Injectable()

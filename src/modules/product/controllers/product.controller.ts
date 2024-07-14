@@ -1,8 +1,8 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ControllerName } from 'src/common/enums/controller.enum';
-import { ProductService } from './product.service';
+import { ProductService } from '../services/product.service';
 import { ApiConsumes, ApiTags } from '@nestjs/swagger';
-import { CreateProductDto } from './dtos/create-product.dto';
+import { CreateProductDto } from '../dtos/create-product.dto';
 import { SwaggerConsumer } from 'src/common/enums/swagger-consumer.enum';
 
 @Controller(ControllerName.Product)
