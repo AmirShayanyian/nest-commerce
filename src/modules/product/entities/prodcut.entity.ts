@@ -4,6 +4,7 @@ import { EntityName } from 'src/common/enums/entity.enum';
 import { CategoryEntity } from 'src/modules/category/entities/category.entity';
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, UpdateDateColumn } from 'typeorm';
 import { AttributeEntity } from './attribute.entity';
+import { ProductSkuEntity } from './sku.entity';
 
 @Entity(EntityName.Product)
 export class ProductEntity extends BaseEntity {
@@ -32,6 +33,9 @@ export class ProductEntity extends BaseEntity {
 
   @OneToMany(() => AttributeEntity, (attribute) => attribute.product)
   attributes: AttributeEntity[];
+
+  @OneToMany(() => ProductSkuEntity, (product_sku) => product_sku.product)
+  product_skus: ProductSkuEntity[];
 
   @CreateDateColumn()
   created_at: Date;

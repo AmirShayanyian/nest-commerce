@@ -3,18 +3,18 @@ import { EntityName } from 'src/common/enums/entity.enum';
 import { Column, CreateDateColumn, Entity, ManyToOne, UpdateDateColumn } from 'typeorm';
 import { ProductEntity } from './prodcut.entity';
 
-@Entity(EntityName.Attribute)
-export class AttributeEntity extends BaseEntity {
+@Entity(EntityName.ProductSku)
+export class ProductSkuEntity extends BaseEntity {
   @Column()
-  type: string;
+  sku: number;
 
   @Column()
-  value: string;
+  price: number;
 
   @Column()
-  productId: number;
+  quantity: number;
 
-  @ManyToOne(() => ProductEntity, (product) => product.attributes, { onDelete: 'CASCADE' })
+  @ManyToOne(() => ProductEntity, (product) => product.product_skus, { onDelete: 'CASCADE' })
   product: ProductEntity;
 
   @CreateDateColumn()

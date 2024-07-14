@@ -3,4 +3,5 @@ export enum EntityName {
   Category = 'category',
   Product = ' product',
   Attribute = 'attribute',
+  ProductSku = 'product_sku',
 }
