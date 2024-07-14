@@ -4,7 +4,7 @@ import { Column, CreateDateColumn, Entity, ManyToOne, UpdateDateColumn } from 't
 import { ProductEntity } from './prodcut.entity';
 
 @Entity(EntityName.ProductAttribute)
-export class AttributeEntity extends BaseEntity {
+export class ProductAttributeEntity extends BaseEntity {
   @Column()
   type: string;
 

@@ -3,7 +3,7 @@ import { BaseEntity } from 'src/common/abstracts/base.entity';
 import { EntityName } from 'src/common/enums/entity.enum';
 import { CategoryEntity } from 'src/modules/category/entities/category.entity';
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, UpdateDateColumn } from 'typeorm';
-import { AttributeEntity } from './attribute.entity';
+import { ProductAttributeEntity } from './attribute.entity';
 import { ProductSkuEntity } from './sku.entity';
 import { ProductReviewEntity } from './review.entity';
 
@@ -32,8 +32,8 @@ export class ProductEntity extends BaseEntity {
   })
   category: CategoryEntity;
 
-  @OneToMany(() => AttributeEntity, (attribute) => attribute.product)
-  attributes: AttributeEntity[];
+  @OneToMany(() => ProductAttributeEntity, (attribute) => attribute.product)
+  attributes: ProductAttributeEntity[];
 
   @OneToMany(() => ProductSkuEntity, (product_sku) => product_sku.product)
   product_skus: ProductSkuEntity[];
