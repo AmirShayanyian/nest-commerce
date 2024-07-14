@@ -1,6 +1,7 @@
 import { BaseEntity } from 'src/common/abstracts/base.entity';
 import { EntityName } from 'src/common/enums/entity.enum';
-import { Column, Entity } from 'typeorm';
+import { ProductReviewEntity } from 'src/modules/product/entities/review.entity';
+import { Column, Entity, OneToOne } from 'typeorm';
 
 @Entity(EntityName.User)
 export class UserEntity extends BaseEntity {
@@ -18,4 +19,7 @@ export class UserEntity extends BaseEntity {
 
   @Column()
   email: string;
+
+  @OneToOne(() => ProductReviewEntity, (review) => review.author)
+  review: ProductReviewEntity;
 }

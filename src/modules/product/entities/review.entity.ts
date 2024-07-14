@@ -1,10 +1,11 @@
 import { EntityName } from 'src/common/enums/entity.enum';
-import { Column, Entity, OneToMany, OneToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
 import { ProductEntity } from './prodcut.entity';
 import { BaseEntity } from 'src/common/abstracts/base.entity';
+import { UserEntity } from 'src/modules/auth/entities/user.entity';
 
 @Entity(EntityName.ProductReview)
-export class ProductReviewEntity extends BaseEntity{
+export class ProductReviewEntity extends BaseEntity {
   @Column()
   text: string;
 
@@ -19,4 +20,8 @@ export class ProductReviewEntity extends BaseEntity{
 
   @Column()
   userId: number;
+
+  @OneToOne(() => UserEntity, (user) => user.review)
+  @JoinColumn()
+  author: UserEntity;
 }
