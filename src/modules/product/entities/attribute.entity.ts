@@ -3,7 +3,7 @@ import { EntityName } from 'src/common/enums/entity.enum';
 import { Column, CreateDateColumn, Entity, ManyToOne, UpdateDateColumn } from 'typeorm';
 import { ProductEntity } from './prodcut.entity';
 
-@Entity(EntityName.Attribute)
+@Entity(EntityName.ProductAttribute)
 export class AttributeEntity extends BaseEntity {
   @Column()
   type: string;

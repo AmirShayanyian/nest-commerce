@@ -5,6 +5,7 @@ import { CategoryEntity } from 'src/modules/category/entities/category.entity';
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, UpdateDateColumn } from 'typeorm';
 import { AttributeEntity } from './attribute.entity';
 import { ProductSkuEntity } from './sku.entity';
+import { ProductReviewEntity } from './review.entity';
 
 @Entity(EntityName.Product)
 export class ProductEntity extends BaseEntity {
@@ -36,6 +37,9 @@ export class ProductEntity extends BaseEntity {
 
   @OneToMany(() => ProductSkuEntity, (product_sku) => product_sku.product)
   product_skus: ProductSkuEntity[];
+
+  @OneToMany(() => ProductReviewEntity, (product_review) => product_review.product)
+  product_reviews: ProductReviewEntity[];
 
   @CreateDateColumn()
   created_at: Date;
