@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { ControllerName } from 'src/common/enums/controller.enum';
 import { SwaggerConsumer } from 'src/common/enums/swagger-consumer.enum';
@@ -14,5 +14,10 @@ export class ProductAttributeController {
   @ApiConsumes(SwaggerConsumer.Json)
   create(@Body() createAttributeDto: CreateAttributeDto) {
     return this.attributeService.create(createAttributeDto);
+  }
+
+  @Get('/')
+  findAll() {
+    return this.attributeService.findAll();
   }
 }

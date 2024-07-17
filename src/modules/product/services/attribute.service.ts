@@ -21,4 +21,8 @@ export class AttributeService {
     });
     return { message: PublicMessages.Created };
   }
+
+  async findAll() {
+    return this.attributeRepository.find();
+  }
 }
