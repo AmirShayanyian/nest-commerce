@@ -14,6 +14,15 @@ export class ProductSkuEntity extends BaseEntity {
   @Column()
   quantity: number;
 
+  @Column()
+  size: string;
+
+  @Column()
+  color: string;
+
+  // @Column()
+  // images: string[];
+
   @ManyToOne(() => ProductEntity, (product) => product.product_skus, { onDelete: 'CASCADE' })
   product: ProductEntity;
 
