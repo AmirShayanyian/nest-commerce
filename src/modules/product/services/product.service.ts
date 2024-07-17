@@ -33,6 +33,9 @@ export class ProductService {
     return this.productRepository.find({
       relations: {
         attributes: true,
+        product_reviews: {
+          author: true,
+        },
       },
       select: {
         title: true,
@@ -42,6 +45,13 @@ export class ProductService {
         attributes: {
           key: true,
           value: true,
+        },
+        product_reviews: {
+          text: true,
+          rating: true,
+          author: {
+            username: true,
+          },
         },
       },
     });

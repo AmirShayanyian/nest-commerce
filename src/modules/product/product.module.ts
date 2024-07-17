@@ -11,6 +11,11 @@ import { ProductAttributeController } from './controllers/attribute.controller';
 import { AttributeService } from './services/attribute.service';
 import { ReviewService } from './services/review.service';
 import { ProductReviewController } from './controllers/review.controller';
+import { AuthModule } from '../auth/auth.module';
+import { AuthService } from '../auth/auth.service';
+import { JwtService } from '@nestjs/jwt';
+import { TokenService } from '../auth/token.service';
+import { UserEntity } from '../auth/entities/user.entity';
 
 @Module({
   imports: [
@@ -20,9 +25,10 @@ import { ProductReviewController } from './controllers/review.controller';
       ProductReviewEntity,
       ProductSkuEntity,
       ProductAttributeEntity,
+      UserEntity,
     ]),
   ],
   controllers: [ProductController, ProductAttributeController, ProductReviewController],
-  providers: [ProductService, AttributeService, ReviewService],
+  providers: [ProductService, AttributeService, ReviewService, AuthService, TokenService, JwtService],
 })
 export class ProductModule {}
