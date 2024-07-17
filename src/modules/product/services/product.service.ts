@@ -43,7 +43,12 @@ export class ProductService {
 
   async update(id: number, updateProductDto: UpdateProductDto) {
     const { title, description, price, summary } = updateProductDto;
-    const updated = await this.productRepository.update({ id }, { title, description, price, summary });
-    return { message: PublicMessages.Updated, updated };
+    await this.productRepository.update({ id }, { title, description, price, summary });
+    return { message: PublicMessages.Updated };
+  }
+  async remove(id: number) {
+    await this.findById(id);
+    await this.productRepository.delete({ id });
+    return { message: PublicMessages.Deleted };
   }
 }

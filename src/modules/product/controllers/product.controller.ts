@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
 import { ControllerName } from 'src/common/enums/controller.enum';
 import { ProductService } from '../services/product.service';
 import { ApiConsumes, ApiTags } from '@nestjs/swagger';
@@ -32,5 +32,10 @@ export class ProductController {
   @Patch('/:id')
   update(@Param('id') id: number, @Body() updateProductDto: UpdateProductDto) {
     return this.productService.update(id, updateProductDto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: number) {
+    return this.productService.remove(id);
   }
 }
