@@ -4,6 +4,7 @@ import { ProductEntity } from '../entities/prodcut.entity';
 import { Repository } from 'typeorm';
 import { CreateProductDto } from '../dtos/create-product.dto';
 import { NotFoundMessages, PublicMessages } from 'src/common/enums/messages.enum';
+import { UpdateProductDto } from '../dtos/update-product.dto';
 
 @Injectable()
 export class ProductService {
@@ -38,5 +39,11 @@ export class ProductService {
       throw new NotFoundException(NotFoundMessages.ProductNotFound);
     }
     return product;
+  }
+
+  async update(id: number, updateProductDto: UpdateProductDto) {
+    const { title, description, price, summary } = updateProductDto;
+    const updated = await this.productRepository.update({ id }, { title, description, price, summary });
+    return { message: PublicMessages.Updated, updated };
   }
 }

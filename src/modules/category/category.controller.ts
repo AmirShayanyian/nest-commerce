@@ -43,7 +43,7 @@ export class CategoryController {
   updateOne(@Param('id') id: number, @Body() updateCategoryDto: UpdateCategoryDto) {
     return this.categoryService.updateOne(updateCategoryDto, id);
   }
-  @SkipAuth()
+
   @Delete('/:id')
   remove(@Param('id') id: number) {
     return this.categoryService.remove(id);
