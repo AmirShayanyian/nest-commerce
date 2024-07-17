@@ -27,4 +27,8 @@ export class ProductService {
       message: PublicMessages.Created,
     };
   }
+
+  async find() {
+    return this.productRepository.find();
+  }
 }

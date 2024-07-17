@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ControllerName } from 'src/common/enums/controller.enum';
 import { ProductService } from '../services/product.service';
 import { ApiConsumes, ApiTags } from '@nestjs/swagger';
@@ -14,5 +14,10 @@ export class ProductController {
   @ApiConsumes(SwaggerConsumer.Json, SwaggerConsumer.UrlEncoded)
   create(@Body() productDto: CreateProductDto) {
     return this.productService.create(productDto);
+  }
+
+  @Get('/')
+  find(){
+    return this.productService.find();
   }
 }
