@@ -4,6 +4,8 @@ import { Repository } from 'typeorm';
 import { CreateAttributeDto, DicDto } from '../dtos/attributes/create-attribute.dto';
 import { ProductService } from './product.service';
 import { PublicMessages } from 'src/common/enums/messages.enum';
+import { UpdateAttributeDto } from '../dtos/attributes/update-attribute.dto';
+import { UUID } from 'typeorm/driver/mongodb/bson.typings';
 
 export class AttributeService {
   constructor(
@@ -23,11 +25,20 @@ export class AttributeService {
   }
 
   async findAll() {
-    return this.attributeRepository.find();
+    return this.attributeRepository.find({
+      select: {
+        key: true,
+      },
+    });
   }
 
   async findByProductId(id: number) {
     const attributes = await this.attributeRepository.findBy({ productId: id });
     return attributes;
+  }
+  async addAttByProductId(productId: number, updateAttributeDto: CreateAttributeDto) {
+    updateAttributeDto.productId = productId;
+    await this.create(updateAttributeDto);
+    return { message: PublicMessages.Created };
   }
 }

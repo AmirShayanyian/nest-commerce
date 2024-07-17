@@ -4,6 +4,7 @@ import { ControllerName } from 'src/common/enums/controller.enum';
 import { SwaggerConsumer } from 'src/common/enums/swagger-consumer.enum';
 import { AttributeService } from '../services/attribute.service';
 import { CreateAttributeDto } from '../dtos/attributes/create-attribute.dto';
+import { UpdateAttributeDto } from '../dtos/attributes/update-attribute.dto';
 
 @Controller(ControllerName.ProductAttribute)
 @ApiTags('Product_Attributes')
@@ -24,5 +25,10 @@ export class ProductAttributeController {
   @Get('/by-product-id/:productId')
   findByProductId(@Param('productId') productId: number) {
     return this.attributeService.findByProductId(productId);
+  }
+
+  @Post('/add-attribute/:productId')
+  addAttByproductId(@Param('productId') productId: number, @Body() updateAttributeDto: CreateAttributeDto) {
+    return this.attributeService.addAttByProductId(productId, updateAttributeDto);
   }
 }
