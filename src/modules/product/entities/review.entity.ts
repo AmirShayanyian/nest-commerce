@@ -9,7 +9,7 @@ export class ProductReviewEntity extends BaseEntity {
   @Column()
   text: string;
 
-  @Column()
+  @Column({ type: 'double' })
   rating: number;
 
   @Column()

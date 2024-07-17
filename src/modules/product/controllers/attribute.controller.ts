@@ -4,7 +4,6 @@ import { ControllerName } from 'src/common/enums/controller.enum';
 import { SwaggerConsumer } from 'src/common/enums/swagger-consumer.enum';
 import { AttributeService } from '../services/attribute.service';
 import { CreateAttributeDto } from '../dtos/attributes/create-attribute.dto';
-import { UpdateAttributeDto } from '../dtos/attributes/update-attribute.dto';
 
 @Controller(ControllerName.ProductAttribute)
 @ApiTags('Product_Attributes')

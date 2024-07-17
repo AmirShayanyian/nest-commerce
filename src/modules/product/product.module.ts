@@ -9,6 +9,8 @@ import { ProductSkuEntity } from './entities/sku.entity';
 import { ProductAttributeEntity } from './entities/attribute.entity';
 import { ProductAttributeController } from './controllers/attribute.controller';
 import { AttributeService } from './services/attribute.service';
+import { ReviewService } from './services/review.service';
+import { ProductReviewController } from './controllers/review.controller';
 
 @Module({
   imports: [
@@ -20,7 +22,7 @@ import { AttributeService } from './services/attribute.service';
       ProductAttributeEntity,
     ]),
   ],
-  controllers: [ProductController, ProductAttributeController],
-  providers: [ProductService, AttributeService],
+  controllers: [ProductController, ProductAttributeController, ProductReviewController],
+  providers: [ProductService, AttributeService, ReviewService],
 })
 export class ProductModule {}

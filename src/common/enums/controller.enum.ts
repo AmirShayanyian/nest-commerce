@@ -3,4 +3,5 @@ export enum ControllerName {
   Category = 'category',
   Product = 'product',
   ProductAttribute = 'product-attribute',
+  ProductReview = 'product-review',
 }

@@ -4,8 +4,6 @@ import { Repository } from 'typeorm';
 import { CreateAttributeDto, DicDto } from '../dtos/attributes/create-attribute.dto';
 import { ProductService } from './product.service';
 import { PublicMessages } from 'src/common/enums/messages.enum';
-import { UpdateAttributeDto } from '../dtos/attributes/update-attribute.dto';
-import { UUID } from 'typeorm/driver/mongodb/bson.typings';
 
 export class AttributeService {
   constructor(
