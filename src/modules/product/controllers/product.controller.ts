@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ControllerName } from 'src/common/enums/controller.enum';
 import { ProductService } from '../services/product.service';
 import { ApiConsumes, ApiTags } from '@nestjs/swagger';
@@ -17,7 +17,12 @@ export class ProductController {
   }
 
   @Get('/')
-  find(){
+  find() {
     return this.productService.find();
+  }
+
+  @Get('by-id/:id')
+  findById(@Param('id') id: number) {
+    return this.productService.findById(id);
   }
 }

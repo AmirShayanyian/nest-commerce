@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductEntity } from '../entities/prodcut.entity';
 import { Repository } from 'typeorm';
 import { CreateProductDto } from '../dtos/create-product.dto';
-import { PublicMessages } from 'src/common/enums/messages.enum';
+import { NotFoundMessages, PublicMessages } from 'src/common/enums/messages.enum';
 
 @Injectable()
 export class ProductService {
@@ -30,5 +30,13 @@ export class ProductService {
 
   async find() {
     return this.productRepository.find();
+  }
+
+  async findById(id: number) {
+    const product = await this.productRepository.findOneBy({ id });
+    if (!product) {
+      throw new NotFoundException(NotFoundMessages.ProductNotFound);
+    }
+    return product;
   }
 }
