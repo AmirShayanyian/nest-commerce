@@ -30,7 +30,21 @@ export class ProductService {
   }
 
   async find() {
-    return this.productRepository.find();
+    return this.productRepository.find({
+      relations: {
+        attributes: true,
+      },
+      select: {
+        title: true,
+        description: true,
+        price: true,
+        summary: true,
+        attributes: {
+          key: true,
+          value: true,
+        },
+      },
+    });
   }
 
   async findById(id: number) {
