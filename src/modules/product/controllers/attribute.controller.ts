@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { ControllerName } from 'src/common/enums/controller.enum';
 import { SwaggerConsumer } from 'src/common/enums/swagger-consumer.enum';
@@ -19,5 +19,10 @@ export class ProductAttributeController {
   @Get('/')
   findAll() {
     return this.attributeService.findAll();
+  }
+
+  @Get('/by-product-id/:productId')
+  findByProductId(@Param('productId') productId: number) {
+    return this.attributeService.findByProductId(productId);
   }
 }

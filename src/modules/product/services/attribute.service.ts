@@ -25,4 +25,9 @@ export class AttributeService {
   async findAll() {
     return this.attributeRepository.find();
   }
+
+  async findByProductId(id: number) {
+    const attributes = await this.attributeRepository.findBy({ productId: id });
+    return attributes;
+  }
 }
