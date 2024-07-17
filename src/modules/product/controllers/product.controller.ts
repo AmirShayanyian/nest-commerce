@@ -5,6 +5,7 @@ import { ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { CreateProductDto } from '../dtos/create-product.dto';
 import { SwaggerConsumer } from 'src/common/enums/swagger-consumer.enum';
 import { UpdateProductDto } from '../dtos/update-product.dto';
+import { Pagination } from 'src/common/decorators/pagination.decorator';
 
 @Controller(ControllerName.Product)
 @ApiTags('Product')
@@ -18,6 +19,7 @@ export class ProductController {
   }
 
   @Get('/')
+  @Pagination()
   find() {
     return this.productService.find();
   }
