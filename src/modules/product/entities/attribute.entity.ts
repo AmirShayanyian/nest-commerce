@@ -6,7 +6,7 @@ import { ProductEntity } from './prodcut.entity';
 @Entity(EntityName.ProductAttribute)
 export class ProductAttributeEntity extends BaseEntity {
   @Column()
-  type: string;
+  key: string;
 
   @Column()
   value: string;

@@ -2,9 +2,9 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/
 import { ControllerName } from 'src/common/enums/controller.enum';
 import { ProductService } from '../services/product.service';
 import { ApiConsumes, ApiTags } from '@nestjs/swagger';
-import { CreateProductDto } from '../dtos/create-product.dto';
+import { CreateProductDto } from '../dtos/product/create-product.dto';
 import { SwaggerConsumer } from 'src/common/enums/swagger-consumer.enum';
-import { UpdateProductDto } from '../dtos/update-product.dto';
+import { UpdateProductDto } from '../dtos/product/update-product.dto';
 import { Pagination } from 'src/common/decorators/pagination.decorator';
 
 @Controller(ControllerName.Product)
