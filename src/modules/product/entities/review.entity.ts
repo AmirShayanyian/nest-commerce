@@ -3,6 +3,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from 'type
 import { ProductEntity } from './prodcut.entity';
 import { BaseEntity } from 'src/common/abstracts/base.entity';
 import { UserEntity } from 'src/modules/auth/entities/user.entity';
+import { CommentEntity } from './comment.entity';
 
 @Entity(EntityName.ProductReview)
 export class ProductReviewEntity extends BaseEntity {
@@ -17,6 +18,9 @@ export class ProductReviewEntity extends BaseEntity {
 
   @ManyToOne(() => ProductEntity, (product) => product.product_reviews, { onDelete: 'CASCADE' })
   product: ProductEntity;
+
+  @OneToMany(() => CommentEntity, (comment) => comment.review)
+  comments: CommentEntity[];
 
   @Column()
   userId: number;

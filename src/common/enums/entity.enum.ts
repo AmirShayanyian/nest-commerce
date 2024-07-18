@@ -5,4 +5,5 @@ export enum EntityName {
   ProductAttribute = 'product_attribute',
   ProductSku = 'product_sku',
   ProductReview = 'product_review',
+  Comment = 'comment',
 }
