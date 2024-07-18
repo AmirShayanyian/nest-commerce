@@ -7,19 +7,19 @@ import { CommentEntity } from './comment.entity';
 
 @Entity(EntityName.ProductReview)
 export class ProductReviewEntity extends BaseEntity {
-  @Column()
+  @Column({ nullable: true, default: '' })
   text: string;
 
-  @Column({ type: 'double' })
+  @Column({ type: 'double', nullable: true })
   rating: number;
 
-  @Column()
+  @Column({ default: 0 })
   upVote: number;
 
-  @Column()
+  @Column({ default: 0 })
   downVote: number;
 
-  @Column()
+  @Column({ nullable: true })
   productId: number;
 
   @ManyToOne(() => ProductEntity, (product) => product.product_reviews, { onDelete: 'CASCADE' })
@@ -28,7 +28,7 @@ export class ProductReviewEntity extends BaseEntity {
   @OneToMany(() => CommentEntity, (comment) => comment.review)
   comments: CommentEntity[];
 
-  @Column()
+  @Column({ nullable: true })
   authorId: number;
 
   @ManyToOne(() => UserEntity, (user) => user.reviews, { onDelete: 'CASCADE' })

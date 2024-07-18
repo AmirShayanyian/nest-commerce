@@ -15,7 +15,11 @@ export class ReviewService {
   async create(createReviewDto: CreateReviewDto, userId: number) {
     const { text, rating, productId } = createReviewDto;
     await this.productService.findById(productId);
-    const review = this.reviewRepository.create({ text, rating, productId, authorId: userId });
+    // const review = this.reviewRepository.create({ text, rating, productId, authorId: userId });
+    const review = await this.reviewRepository.query(
+      'INSERT INTO product_review (text,rating,productId,authorId) VALUES (?,?,?,?)',
+      [text, rating, productId, userId]
+    );
     await this.reviewRepository.save(review);
     return { message: PublicMessages.Created };
   }
@@ -23,12 +27,8 @@ export class ReviewService {
   async createVote(createVoteDto: CreateVoteDto) {
     const { reviewId, like } = createVoteDto;
     const review = await this.reviewRepository.findOneBy({ id: reviewId });
-    switch (like) {
-      case true:
-        review.upVote++;
-      case false:
-        review.downVote++;
-    }
+    if (like) review.upVote++;
+    else review.downVote++;
     await this.reviewRepository.save(review);
     return {
       message: PublicMessages.Created,
