@@ -1,5 +1,5 @@
 import { EntityName } from 'src/common/enums/entity.enum';
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { ProductEntity } from './prodcut.entity';
 import { BaseEntity } from 'src/common/abstracts/base.entity';
 import { UserEntity } from 'src/modules/auth/entities/user.entity';
@@ -12,6 +12,12 @@ export class ProductReviewEntity extends BaseEntity {
 
   @Column({ type: 'double' })
   rating: number;
+
+  @Column()
+  upVote: number;
+
+  @Column()
+  downVote: number;
 
   @Column()
   productId: number;

@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { CreateReviewDto } from '../dtos/review/create-review.dto';
 import { PublicMessages } from 'src/common/enums/messages.enum';
 import { ProductService } from './product.service';
+import { CreateVoteDto } from '../dtos/review/create-vote.dto';
 
 export class ReviewService {
   constructor(
@@ -17,5 +18,20 @@ export class ReviewService {
     const review = this.reviewRepository.create({ text, rating, productId, authorId: userId });
     await this.reviewRepository.save(review);
     return { message: PublicMessages.Created };
+  }
+
+  async createVote(createVoteDto: CreateVoteDto) {
+    const { reviewId, like } = createVoteDto;
+    const review = await this.reviewRepository.findOneBy({ id: reviewId });
+    switch (like) {
+      case true:
+        review.upVote++;
+      case false:
+        review.downVote++;
+    }
+    await this.reviewRepository.save(review);
+    return {
+      message: PublicMessages.Created,
+    };
   }
 }

@@ -6,6 +6,7 @@ import { Request } from 'express';
 import { CreateReviewDto } from '../dtos/review/create-review.dto';
 import { SwaggerConsumer } from 'src/common/enums/swagger-consumer.enum';
 import { AuthGuards } from 'src/modules/auth/guards/auth.guard';
+import { CreateVoteDto } from '../dtos/review/create-vote.dto';
 
 @Controller(ControllerName.ProductReview)
 @ApiTags('Product_Reviews')
@@ -21,5 +22,9 @@ export class ProductReviewController {
     return this.reviewService.create(createReviewDto, +id);
   }
 
-  
+  @Post('/add-vote')
+  @ApiConsumes(SwaggerConsumer.Json, SwaggerConsumer.UrlEncoded)
+  createVote(@Body() createVoteDto: CreateVoteDto) {
+    return this.reviewService.createVote(createVoteDto);
+  }
 }

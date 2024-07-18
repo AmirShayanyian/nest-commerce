@@ -42,6 +42,7 @@ export class ProductService {
           author: true,
         },
       },
+      relationLoadStrategy: 'join',
       select: {
         id: true,
         title: true,
@@ -49,18 +50,21 @@ export class ProductService {
         price: true,
         summary: true,
         attributes: {
+          id: true,
           key: true,
           value: true,
         },
         product_reviews: {
+          upVote: true,
+          downVote: true,
           text: true,
           rating: true,
           author: {
+            id: true,
             username: true,
           },
         },
       },
-      order: { id: 'DESC' },
     });
     return {
       pagination: paginationGenerator(count, page, limit),
