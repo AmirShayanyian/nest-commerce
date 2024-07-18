@@ -1,6 +1,6 @@
 import { EntityName } from 'src/common/enums/entity.enum';
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
-import { ProductEntity } from './prodcut.entity';
+import { ProductEntity } from './product.entity';
 import { BaseEntity } from 'src/common/abstracts/base.entity';
 import { UserEntity } from 'src/modules/auth/entities/user.entity';
 import { CommentEntity } from './comment.entity';
@@ -30,6 +30,7 @@ export class ProductReviewEntity extends BaseEntity {
 
   @Column({ nullable: true })
   authorId: number;
+
 
   @ManyToOne(() => UserEntity, (user) => user.reviews, { onDelete: 'CASCADE' })
   author: UserEntity;

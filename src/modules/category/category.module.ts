@@ -7,7 +7,7 @@ import { AuthService } from '../auth/auth.service';
 import { JwtService } from '@nestjs/jwt';
 import { TokenService } from '../auth/token.service';
 import { UserEntity } from '../auth/entities/user.entity';
-import { ProductEntity } from '../product/entities/prodcut.entity';
+import { ProductEntity } from '../product/entities/product.entity';
 
 @Module({
   imports: [

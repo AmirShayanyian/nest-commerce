@@ -16,11 +16,11 @@ export class ReviewService {
     const { text, rating, productId } = createReviewDto;
     await this.productService.findById(productId);
     // const review = this.reviewRepository.create({ text, rating, productId, authorId: userId });
-    const review = await this.reviewRepository.query(
-      'INSERT INTO product_review (text,rating,productId,authorId) VALUES (?,?,?,?)',
-      [text, rating, productId, userId]
-    );
-    await this.reviewRepository.save(review);
+    // await this.reviewRepository.save(review);
+    const query = `INSERT INTO
+    product_review (text,rating,productId,authorId)
+    VALUES (?,?,?,?)`;
+    await this.reviewRepository.query(query, [text, rating, productId, userId]);
     return { message: PublicMessages.Created };
   }
 

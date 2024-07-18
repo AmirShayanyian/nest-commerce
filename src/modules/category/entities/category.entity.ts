@@ -1,6 +1,6 @@
 import { BaseEntity } from 'src/common/abstracts/base.entity';
 import { EntityName } from 'src/common/enums/entity.enum';
-import { ProductEntity } from 'src/modules/product/entities/prodcut.entity';
+import { ProductEntity } from 'src/modules/product/entities/product.entity';
 import {
   Column,
   CreateDateColumn,

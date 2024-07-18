@@ -1,7 +1,7 @@
 import { BaseEntity } from 'src/common/abstracts/base.entity';
 import { EntityName } from 'src/common/enums/entity.enum';
 import { Column, CreateDateColumn, Entity, ManyToOne, UpdateDateColumn } from 'typeorm';
-import { ProductEntity } from './prodcut.entity';
+import { ProductEntity } from './product.entity';
 
 @Entity(EntityName.ProductSku)
 export class ProductSkuEntity extends BaseEntity {

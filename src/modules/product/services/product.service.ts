@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ProductEntity } from '../entities/prodcut.entity';
+import { ProductEntity } from '../entities/product.entity';
 import { Repository } from 'typeorm';
 import { CreateProductDto } from '../dtos/product/create-product.dto';
 import { NotFoundMessages, PublicMessages } from 'src/common/enums/messages.enum';
@@ -17,15 +17,19 @@ export class ProductService {
 
   async create(productDto: CreateProductDto) {
     const { title, description, price, summary, categoryId } = productDto;
-    const product = this.productRepository.create({
-      title,
-      description,
-      price,
-      summary,
-      categoryId,
-    });
-    await this.productRepository.save(product);
-
+    // const product = this.productRepository.create({
+    //   title,
+    //   description,
+    //   price,
+    //   summary,
+    //   categoryId,
+    // });
+    // await this.productRepository.save(product);
+    const query = `INSERT INTO 
+    product (title,description,price,summary,categoryId)
+     VALUES (?,?,?,?,?)
+    `;
+    await this.productRepository.query(query, [title, description, price, summary, categoryId]);
     return {
       message: PublicMessages.Created,
     };
