@@ -5,6 +5,8 @@ import { Repository } from 'typeorm';
 import { CreateProductDto } from '../dtos/product/create-product.dto';
 import { NotFoundMessages, PublicMessages } from 'src/common/enums/messages.enum';
 import { UpdateProductDto } from '../dtos/product/update-product.dto';
+import { PaginationDto } from 'src/common/dtos/pagination.dto';
+import { paginationGenerator, paginationSolver } from 'src/common/utils/pagination.util';
 
 @Injectable()
 export class ProductService {
@@ -29,8 +31,11 @@ export class ProductService {
     };
   }
 
-  async find() {
-    return this.productRepository.find({
+  async find(paginationDto: PaginationDto) {
+    const { limit, page, skip } = paginationSolver(paginationDto);
+    const [products, count] = await this.productRepository.findAndCount({
+      skip,
+      take: limit,
       relations: {
         attributes: true,
         product_reviews: {
@@ -38,6 +43,7 @@ export class ProductService {
         },
       },
       select: {
+        id: true,
         title: true,
         description: true,
         price: true,
@@ -54,7 +60,12 @@ export class ProductService {
           },
         },
       },
+      order: { id: 'DESC' },
     });
+    return {
+      pagination: paginationGenerator(count, page, limit),
+      products,
+    };
   }
 
   async findById(id: number) {
