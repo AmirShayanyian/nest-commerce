@@ -23,9 +23,8 @@ export class ProductReviewEntity extends BaseEntity {
   comments: CommentEntity[];
 
   @Column()
-  userId: number;
+  authorId: number;
 
-  @OneToOne(() => UserEntity, (user) => user.review)
-  @JoinColumn()
+  @ManyToOne(() => UserEntity, (user) => user.reviews, { onDelete: 'CASCADE' })
   author: UserEntity;
 }

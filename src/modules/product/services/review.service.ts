@@ -14,7 +14,7 @@ export class ReviewService {
   async create(createReviewDto: CreateReviewDto, userId: number) {
     const { text, rating, productId } = createReviewDto;
     await this.productService.findById(productId);
-    const review = this.reviewRepository.create({ text, rating, productId, userId });
+    const review = this.reviewRepository.create({ text, rating, productId, authorId: userId });
     await this.reviewRepository.save(review);
     return { message: PublicMessages.Created };
   }
