@@ -37,43 +37,73 @@ export class ProductService {
 
   async find(paginationDto: PaginationDto) {
     const { limit, page, skip } = paginationSolver(paginationDto);
-    const [products, count] = await this.productRepository.findAndCount({
-      skip,
-      take: limit,
-      relations: {
-        attributes: true,
-        product_reviews: {
-          author: true,
-        },
-      },
-      relationLoadStrategy: 'join',
-      select: {
-        id: true,
-        title: true,
-        description: true,
-        price: true,
-        summary: true,
-        attributes: {
-          id: true,
-          key: true,
-          value: true,
-        },
-        product_reviews: {
-          upVote: true,
-          downVote: true,
-          text: true,
-          rating: true,
-          author: {
-            id: true,
-            username: true,
-          },
-        },
-      },
-    });
-    return {
-      pagination: paginationGenerator(count, page, limit),
-      products,
-    };
+    // const [products, count] = await this.productRepository.findAndCount({
+    //   skip,
+    //   take: limit,
+    //   relations: {
+    //     attributes: true,
+    //     product_reviews: {
+    //       author: true,
+    //     },
+    //   },
+    //   relationLoadStrategy: 'join',
+    //   select: {
+    //     id: true,
+    //     title: true,
+    //     description: true,
+    //     price: true,
+    //     summary: true,
+    //     attributes: {
+    //       id: true,
+    //       key: true,
+    //       value: true,
+    //     },
+    //     product_reviews: {
+    //       upVote: true,
+    //       downVote: true,
+    //       text: true,
+    //       rating: true,
+    //       author: {
+    //         id: true,
+    //         username: true,
+    //       },
+    //     },
+    //   },
+    // });
+
+    let query = `
+    SELECT 
+    p.id,
+    p.title,
+    p.description,
+    p.summary,
+    p.price,
+    JSON_ARRAYAGG(
+      JSON_OBJECT(
+        'value', pa.value,
+        'key', pa.key,
+        'productId', pa.productId
+      )
+    )AS attributes,
+    JSON_ARRAYAGG(
+      JSON_OBJECT(
+        'text', pr.text,
+        'rating', pr.rating,
+        'upVote', pr.upVote,
+        'downVote' , pr.downVote,
+        'productId', pr.productId,
+        'authorId', pr.authorId
+      )
+    ) AS reviews
+    FROM product AS p
+    LEFT JOIN product_review AS pr ON (pr.productId = p.id)
+    LEFT JOIN product_attribute AS pa ON (pa.productId = p.id)
+    GROUP BY p.id, pa.productId , pr.productId
+    `;
+    const products = await this.productRepository.query(query);
+    return products;
+
+    // pagination: paginationGenerator(count, page, limit),
   }
 
   async findById(id: number) {
