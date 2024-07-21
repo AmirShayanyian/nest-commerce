@@ -14,11 +14,6 @@ export class CartService {
   ) {}
 
   async createCart(userId: number) {
-    const cart = await this.cartExistByUserId(userId);
-    if (cart)
-      return {
-        message: PublicMessages.Duplicate,
-      };
     await this.cartRepository.insert({ userId });
     return {
       message: PublicMessages.Created,
@@ -30,6 +25,9 @@ export class CartService {
   async cartExistByUserId(userId: number) {
     const cart = await this.cartRepository.findOneBy({ userId });
     if (cart) return cart;
-    throw new NotFoundException(NotFoundMessages.CartNotFoundForUser);
+    await this.createCart(userId);
+    return {
+      message: PublicMessages.Created,
+    };
   }
 }

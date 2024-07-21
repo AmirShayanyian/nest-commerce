@@ -6,7 +6,7 @@ import { CartItemEntity } from './cart-item.entity';
 
 @Entity(EntityName.Cart)
 export class CartEntity extends BaseEntity {
-  @Column()
+  @Column({ default: 0 })
   total: number;
 
   @Column()
