@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateCommentDto {
   @ApiProperty()
@@ -6,4 +6,7 @@ export class CreateCommentDto {
 
   @ApiProperty()
   reviewId: number;
+
+  @ApiPropertyOptional()
+  parentId: number;
 }

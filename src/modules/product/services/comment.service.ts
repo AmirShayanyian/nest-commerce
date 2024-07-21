@@ -9,9 +9,9 @@ import { PublicMessages } from 'src/common/enums/messages.enum';
 export class CommentService {
   constructor(@InjectRepository(CommentEntity) private commentRepository: Repository<CommentEntity>) {}
 
-  async create(createCommentDto: CreateCommentDto, authorId: number) {
-    const { text, reviewId } = createCommentDto;
-    const comment = this.commentRepository.create({ text, reviewId, authorId });
+  async create(createCommentDto: CreateCommentDto, userId: number) {
+    const { text, reviewId, parentId } = createCommentDto;
+    const comment = this.commentRepository.create({ text, reviewId, userId, parentId });
     await this.commentRepository.save(comment);
     return { message: PublicMessages.Created };
   }

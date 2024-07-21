@@ -11,7 +11,7 @@ import { CreateVoteDto } from '../dtos/review/create-vote.dto';
 @Controller(ControllerName.ProductReview)
 @ApiTags('Product_Reviews')
 @ApiBearerAuth('Authorization')
-@UseGuards(AuthGuards)
+@UseGuards(AuthGuards)  
 export class ProductReviewController {
   constructor(private reviewService: ReviewService) {}
 
@@ -27,6 +27,4 @@ export class ProductReviewController {
   createVote(@Body() createVoteDto: CreateVoteDto) {
     return this.reviewService.createVote(createVoteDto);
   }
-
-  
 }

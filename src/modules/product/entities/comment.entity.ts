@@ -13,16 +13,19 @@ export class CommentEntity extends BaseEntity {
   approved: boolean;
 
   @Column()
-  reviewId: number;
-
-  @Column()
-  authorId: number;
+  userId: number;
 
   @ManyToOne(() => UserEntity, (user) => user.comments, { onDelete: 'CASCADE' })
   user: UserEntity;
 
+  @Column()
+  reviewId: number;
+
   @ManyToOne(() => ProductReviewEntity, (review) => review.comments, { onDelete: 'CASCADE' })
   review: ProductReviewEntity;
+
+  @Column({ default: null })
+  parentId: number;
 
   @ManyToOne(() => CommentEntity, (comment) => comment.children, { onDelete: 'CASCADE' })
   parent: CommentEntity;
