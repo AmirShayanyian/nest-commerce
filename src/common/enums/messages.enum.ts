@@ -7,7 +7,8 @@ export enum SignUpValidation {
 export enum NotFoundMessages {
   UserNotFound = 'کاربری با این مشخصات یافت نشد',
   CategoryNotFound = 'دسته بندی با این مشخصات یافت نشد',
-  ProductNotFound = 'محصولی با این مشخصات یافت نشد'
+  ProductNotFound = 'محصولی با این مشخصات یافت نشد',
+  CartNotFoundForUser = 'سبد خریدی برای این کاربر یافت نشد ',
 }
 export enum BadRequestMessages {
   LoginFailed = 'نام کاربری یا رمز عبور اشتباه می باشد',
@@ -21,6 +22,7 @@ export enum PublicMessages {
   Updated = 'با موفقیت به روز رسانی شد',
   Deleted = 'با موفقیت حذف شد',
   LoggedIn = 'با موفقیت وارد شدید ',
+  Duplicate = 'این مورد از قبل ثبت شده است '
 }
 
 export enum AuthMessages {
