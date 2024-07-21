@@ -24,6 +24,8 @@ export class CartService {
     }
     const item = this.cartItemRepository.create({ productId, cartId: cart.id, skuId });
     await this.cartItemRepository.save(item);
+    const total = await this.countTotalItems(cart.id);
+    await this.cartRepository.update({ id: cart.id }, { total });
     return {
       message: PublicMessages.Created,
     };
@@ -37,5 +39,14 @@ export class CartService {
     const createdCart = await this.cartRepository.create({ userId });
     await this.cartRepository.save(createdCart);
     return createdCart;
+  }
+
+  async countTotalItems(cartId: number) {
+    const count = await this.cartItemRepository.count({
+      where: {
+        cartId,
+      },
+    });
+    return count;
   }
 }

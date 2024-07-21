@@ -1,6 +1,6 @@
 import { BaseEntity } from 'src/common/abstracts/base.entity';
 import { EntityName } from 'src/common/enums/entity.enum';
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, UpdateDateColumn } from 'typeorm';
 import { CartEntity } from './cart.entity';
 import { ProductEntity } from 'src/modules/product/entities/product.entity';
 import { ProductSkuEntity } from 'src/modules/product/entities/sku.entity';
@@ -16,16 +16,16 @@ export class CartItemEntity extends BaseEntity {
   @Column()
   productId: number;
 
-  @OneToOne(() => ProductEntity, (product) => product.cart_item)
+  @OneToMany(() => ProductEntity, (product) => product.cart_item)
   @JoinColumn()
-  product: ProductEntity;
+  products: ProductEntity;
 
   @Column()
   skuId: number;
 
-  @OneToOne(() => ProductSkuEntity, (p_sku) => p_sku.cart_item)
+  @OneToMany(() => ProductSkuEntity, (p_sku) => p_sku.cart_item)
   @JoinColumn()
-  sku: ProductSkuEntity;
+  skus: ProductSkuEntity;
 
   @CreateDateColumn()
   created_at: Date;

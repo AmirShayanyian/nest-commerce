@@ -27,7 +27,7 @@ export class ProductSkuEntity extends BaseEntity {
   @ManyToOne(() => ProductEntity, (product) => product.product_skus, { onDelete: 'CASCADE' })
   product: ProductEntity;
 
-  @OneToOne(() => CartItemEntity, (cart_item) => cart_item.sku)
+  @OneToOne(() => CartItemEntity, (cart_item) => cart_item.skus)
   cart_item: CartItemEntity;
 
   @CreateDateColumn()
