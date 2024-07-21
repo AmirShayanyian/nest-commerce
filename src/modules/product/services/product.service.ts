@@ -7,7 +7,7 @@ import { NotFoundMessages, PublicMessages } from 'src/common/enums/messages.enum
 import { UpdateProductDto } from '../dtos/product/update-product.dto';
 import { PaginationDto } from 'src/common/dtos/pagination.dto';
 import { paginationGenerator, paginationSolver } from 'src/common/utils/pagination.util';
-
+import * as qs from 'qs';
 @Injectable()
 export class ProductService {
   constructor(
@@ -107,7 +107,38 @@ export class ProductService {
   }
 
   async findById(id: number) {
-    const product = await this.productRepository.findOneBy({ id });
+    // const product = await this.productRepository.findOneBy({ id });
+    let query = `
+    SELECT 
+    p.id,
+    p.title,
+    p.description,
+    p.summary,
+    p.price,
+    JSON_ARRAYAGG(
+      JSON_OBJECT(
+        'value', pa.value,
+        'key', pa.key,
+        'productId', pa.productId
+      )
+    )AS attributes,
+    JSON_ARRAYAGG(
+      JSON_OBJECT(
+        'text', pr.text,
+        'rating', pr.rating,
+        'upVote', pr.upVote,
+        'downVote' , pr.downVote,
+        'productId', pr.productId,
+        'authorId', pr.authorId
+      )
+    ) AS reviews
+    FROM product AS p
+    LEFT JOIN product_review AS pr ON (pr.productId = p.id)
+    LEFT JOIN product_attribute AS pa ON (pa.productId = p.id)
+    WHERE p.id = ?
+    GROUP BY p.id, pa.productId , pr.productId
+    `;
+    const product = await this.productRepository.query(query, [id]);
     if (!product) {
       throw new NotFoundException(NotFoundMessages.ProductNotFound);
     }
@@ -116,8 +147,40 @@ export class ProductService {
 
   async update(id: number, updateProductDto: UpdateProductDto) {
     const { title, description, price, summary } = updateProductDto;
-    await this.productRepository.update({ id }, { title, description, price, summary });
-    return { message: PublicMessages.Updated };
+    let updateQuery = '';
+    // await this.productRepository.update({ id }, { title, description, price, summary });
+    let query = `
+    UPDATE product
+    SET FIELDS
+    WHERE id = ?
+    `;
+    let obj = {};
+    let parameters = [];
+    if (title) {
+      if (updateQuery.length > 0) updateQuery += ', title = ?';
+      else updateQuery += 'title=?';
+      parameters.push(title);
+    }
+    if (description) {
+      if (updateQuery.length > 0) updateQuery += ', description = ?';
+      else updateQuery += 'description=?';
+      parameters.push(description);
+    }
+    if (summary) {
+      if (updateQuery.length > 0) updateQuery += ', summary = ?';
+      else updateQuery += 'summary=?';
+      parameters.push(summary);
+    }
+    if (description) {
+      if (updateQuery.length > 0) updateQuery += ', price = ?';
+      else updateQuery += 'price=?';
+      parameters.push(price);
+    }
+
+    parameters.push(id);
+    qs.stringify(obj).replace(/&/gim, ',');
+    const result = await this.productRepository.query(query.replace('FIELDS', updateQuery), [...parameters, id]);
+    return { message: PublicMessages.Updated, result };
   }
   async remove(id: number) {
     await this.findById(id);
