@@ -22,7 +22,7 @@ export enum PublicMessages {
   Updated = 'با موفقیت به روز رسانی شد',
   Deleted = 'با موفقیت حذف شد',
   LoggedIn = 'با موفقیت وارد شدید ',
-  Duplicate = 'این مورد از قبل ثبت شده است '
+  Duplicate = 'این مورد از قبل ثبت شده است'
 }
 
 export enum AuthMessages {
