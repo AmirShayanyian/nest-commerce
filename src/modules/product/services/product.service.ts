@@ -6,7 +6,7 @@ import { CreateProductDto } from '../dtos/product/create-product.dto';
 import { NotFoundMessages, PublicMessages } from 'src/common/enums/messages.enum';
 import { UpdateProductDto } from '../dtos/product/update-product.dto';
 import { PaginationDto } from 'src/common/dtos/pagination.dto';
-import { paginationGenerator, paginationSolver } from 'src/common/utils/pagination.util';
+import { paginationSolver } from 'src/common/utils/pagination.util';
 import * as qs from 'qs';
 @Injectable()
 export class ProductService {

@@ -17,6 +17,8 @@ import { JwtService } from '@nestjs/jwt';
 import { TokenService } from '../auth/token.service';
 import { UserEntity } from '../auth/entities/user.entity';
 import { CommentEntity } from './entities/comment.entity';
+import { CommentService } from './services/comment.service';
+import { CommentController } from './controllers/comment.controller';
 
 @Module({
   imports: [
@@ -30,7 +32,7 @@ import { CommentEntity } from './entities/comment.entity';
       CommentEntity,
     ]),
   ],
-  controllers: [ProductController, ProductAttributeController, ProductReviewController],
-  providers: [ProductService, AttributeService, ReviewService, AuthService, TokenService, JwtService],
+  controllers: [ProductController, ProductAttributeController, ProductReviewController, CommentController],
+  providers: [ProductService, AttributeService, ReviewService, AuthService, TokenService, CommentService, JwtService],
 })
 export class ProductModule {}

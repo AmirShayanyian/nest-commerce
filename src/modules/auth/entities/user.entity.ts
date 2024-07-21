@@ -1,5 +1,6 @@
 import { BaseEntity } from 'src/common/abstracts/base.entity';
 import { EntityName } from 'src/common/enums/entity.enum';
+import { CommentEntity } from 'src/modules/product/entities/comment.entity';
 import { ProductReviewEntity } from 'src/modules/product/entities/review.entity';
 import { Column, Entity, OneToMany, OneToOne } from 'typeorm';
 
@@ -22,4 +23,7 @@ export class UserEntity extends BaseEntity {
 
   @OneToMany(() => ProductReviewEntity, (review) => review.author)
   reviews: ProductReviewEntity[];
+
+  @OneToMany(() => CommentEntity, (comment) => comment.user)
+  comments: CommentEntity[];
 }
