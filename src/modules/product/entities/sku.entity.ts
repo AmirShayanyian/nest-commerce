@@ -1,7 +1,8 @@
 import { BaseEntity } from 'src/common/abstracts/base.entity';
 import { EntityName } from 'src/common/enums/entity.enum';
-import { Column, CreateDateColumn, Entity, ManyToOne, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToOne, UpdateDateColumn } from 'typeorm';
 import { ProductEntity } from './product.entity';
+import { CartItemEntity } from 'src/modules/cart/entities/cart-item.entity';
 
 @Entity(EntityName.ProductSku)
 export class ProductSkuEntity extends BaseEntity {
@@ -25,6 +26,9 @@ export class ProductSkuEntity extends BaseEntity {
 
   @ManyToOne(() => ProductEntity, (product) => product.product_skus, { onDelete: 'CASCADE' })
   product: ProductEntity;
+
+  @OneToOne(() => CartItemEntity, (cart_item) => cart_item.sku)
+  cart_item: CartItemEntity;
 
   @CreateDateColumn()
   created_at: Date;
