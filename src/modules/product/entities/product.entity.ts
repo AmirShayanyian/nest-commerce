@@ -10,22 +10,22 @@ import { CartItemEntity } from 'src/modules/cart/entities/cart-item.entity';
 
 @Entity(EntityName.Product)
 export class ProductEntity extends BaseEntity {
-  @Column()
+  @Column({ length: 75, nullable: false })
   title: string;
 
   // pictures will be a different table and would
   // store the picture path and the productId with it
 
-  @Column()
+  @Column({ length: 200, nullable: true })
   summary: string;
 
-  @Column()
+  @Column({ nullable: false })
   description: string;
 
-  @Column()
+  @Column('numeric', { nullable: false })
   price: number;
 
-  @Column()
+  @Column({ nullable: false })
   categoryId: number;
 
   @ManyToOne(() => CategoryEntity, (category) => category.products, {
@@ -42,7 +42,7 @@ export class ProductEntity extends BaseEntity {
   @OneToMany(() => ProductReviewEntity, (product_review) => product_review.product)
   product_reviews: ProductReviewEntity[];
 
-  @OneToOne(() => CartItemEntity, (cart_item) => cart_item.products )
+  @OneToOne(() => CartItemEntity, (cart_item) => cart_item.products)
   cart_item: CartItemEntity;
 
   @CreateDateColumn()
