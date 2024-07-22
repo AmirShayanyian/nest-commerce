@@ -1,25 +1,17 @@
 import { BaseEntity } from 'src/common/abstracts/base.entity';
 import { EntityName } from 'src/common/enums/entity.enum';
 import { ProductEntity } from 'src/modules/product/entities/product.entity';
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  ManyToMany,
-  ManyToOne,
-  OneToMany,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToMany, ManyToOne, OneToMany, UpdateDateColumn } from 'typeorm';
 
 @Entity(EntityName.Category)
 export class CategoryEntity extends BaseEntity {
-  @Column()
+  @Column({ nullable: false, unique: true, length: 25 })
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
-  @Column({ unique: true })
+  @Column({ unique: true, nullable: false })
   slug: string;
 
   @CreateDateColumn()

@@ -90,10 +90,52 @@ export class $npmConfigName1721559542224 implements MigrationInterface {
       true
     );
     //-- end of product Table --
+    //-- Category Table --
+    await queryRunner.createTable(
+      new Table({
+        name: EntityName.Category,
+        columns: [
+          {
+            name: 'id',
+            type: 'integer',
+            isPrimary: true,
+            isGenerated: true,
+            generationStrategy: 'increment',
+          },
+          {
+            name: 'name',
+            type: 'varchar(25)',
+            isUnique: true,
+            isNullable: false,
+          },
+          {
+            name: 'description',
+            type: 'text',
+            isNullable: true,
+          },
+          {
+            name: 'slug',
+            type: 'varchar',
+            isUnique: true,
+            isNullable: true,
+          },
+          {
+            name: 'created_at',
+            type: 'timestamp',
+          },
+          {
+            name: 'updated_at',
+            type: 'timestamp',
+          },
+        ],
+      }),
+      true
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     // await queryRunner.dropTable(EntityName.User, true);
     // await queryRunner.dropTable(EntityName.Product, true);
+    await queryRunner.dropTable(EntityName.Category, true);
   }
 }
