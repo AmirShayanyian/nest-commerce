@@ -7,19 +7,19 @@ import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
 
 @Entity(EntityName.User)
 export class UserEntity extends BaseEntity {
-  @Column()
+  @Column({ nullable: true, length: 30 })
   first_name: string;
 
-  @Column()
+  @Column({ nullable: true, length: 30 })
   last_name: string;
 
-  @Column()
+  @Column({ unique: true, length: 30 })
   username: string;
 
-  @Column()
+  @Column({ nullable: false })
   password: string;
 
-  @Column()
+  @Column({ nullable: true, length: 50 })
   email: string;
 
   @OneToOne(() => CartEntity, (cart) => cart.user)

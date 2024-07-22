@@ -4,13 +4,13 @@ import { DataSource } from "typeorm";
 config();
 config({path: join(process.cwd(), ".env")})
 
-const { DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USERNAME } = process.env;
+const { DB_HOST, DB_DATABASE, DB_PASSWORD, DB_PORT, DB_USERNAME } = process.env;
 let dataSource = new DataSource({
     type: "mysql",
     host: DB_HOST,
     password: DB_PASSWORD,
     username: DB_USERNAME,
-    database: DB_NAME,
+    database: DB_DATABASE,
     port: +DB_PORT,
     synchronize: false,
     entities: [
