@@ -59,15 +59,18 @@ export class $npmConfigName1721559542224 implements MigrationInterface {
           },
           {
             name: 'title',
-            type: 'varchar',
+            type: 'varchar(75)',
+            isNullable: false,
           },
           {
             name: 'summary',
-            type: 'varchar',
+            type: 'varchar(200)',
+            isNullable: true,
           },
           {
             name: 'description',
             type: 'text',
+            isNullable: false,
           },
           {
             name: 'price',
@@ -76,6 +79,7 @@ export class $npmConfigName1721559542224 implements MigrationInterface {
           {
             name: 'categoryId',
             type: 'integer',
+            isNullable: false,
           },
           {
             name: 'created_at',
