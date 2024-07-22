@@ -42,7 +42,7 @@ export class ProductEntity extends BaseEntity {
   @OneToMany(() => ProductReviewEntity, (product_review) => product_review.product)
   product_reviews: ProductReviewEntity[];
 
-  @OneToOne(() => CartItemEntity, (cart_item) => cart_item.products)
+  @OneToOne(() => CartItemEntity, (cart_item) => cart_item.products )
   cart_item: CartItemEntity;
 
   @CreateDateColumn()
