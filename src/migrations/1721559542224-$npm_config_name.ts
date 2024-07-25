@@ -1,5 +1,5 @@
-import { EntityName } from 'src/common/enums/entity.enum';
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import { EntityName } from "src/common/enums/entity.enum";
+import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
 export class $npmConfigName1721559542224 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -9,35 +9,35 @@ export class $npmConfigName1721559542224 implements MigrationInterface {
         name: EntityName.User,
         columns: [
           {
-            name: 'id',
-            type: 'integer',
+            name: "id",
+            type: "integer",
             isPrimary: true,
             isGenerated: true,
-            generationStrategy: 'increment',
+            generationStrategy: "increment",
           },
           {
-            name: 'first_name',
-            type: 'varchar(30)',
+            name: "first_name",
+            type: "varchar(30)",
             isNullable: true,
           },
           {
-            name: 'last_name',
-            type: 'varchar(30)',
+            name: "last_name",
+            type: "varchar(30)",
             isNullable: true,
           },
           {
-            name: 'username',
-            type: 'varchar(30)',
+            name: "username",
+            type: "varchar(30)",
             isUnique: true,
           },
           {
-            name: 'password',
-            type: 'varchar',
+            name: "password",
+            type: "varchar",
             isNullable: false,
           },
           {
-            name: 'email',
-            type: 'varchar(50)',
+            name: "email",
+            type: "varchar(50)",
             isNullable: true,
           },
         ],
@@ -51,43 +51,43 @@ export class $npmConfigName1721559542224 implements MigrationInterface {
         name: EntityName.Product,
         columns: [
           {
-            name: 'id',
-            type: 'integer',
+            name: "id",
+            type: "integer",
             isPrimary: true,
             isGenerated: true,
-            generationStrategy: 'increment',
+            generationStrategy: "increment",
           },
           {
-            name: 'title',
-            type: 'varchar(75)',
+            name: "title",
+            type: "varchar(75)",
             isNullable: false,
           },
           {
-            name: 'summary',
-            type: 'varchar(200)',
+            name: "summary",
+            type: "varchar(200)",
             isNullable: true,
           },
           {
-            name: 'description',
-            type: 'text',
+            name: "description",
+            type: "text",
             isNullable: false,
           },
           {
-            name: 'price',
-            type: 'numeric',
+            name: "price",
+            type: "numeric",
           },
           {
-            name: 'categoryId',
-            type: 'integer',
+            name: "categoryId",
+            type: "integer",
             isNullable: false,
           },
           {
-            name: 'created_at',
-            type: 'timestamp',
+            name: "created_at",
+            type: "timestamp",
           },
           {
-            name: 'updated_at',
-            type: 'timestamp',
+            name: "updated_at",
+            type: "timestamp",
           },
         ],
       }),
@@ -100,40 +100,66 @@ export class $npmConfigName1721559542224 implements MigrationInterface {
         name: EntityName.Category,
         columns: [
           {
-            name: 'id',
-            type: 'integer',
+            name: "id",
+            type: "integer",
             isPrimary: true,
             isGenerated: true,
-            generationStrategy: 'increment',
+            generationStrategy: "increment",
           },
           {
-            name: 'name',
-            type: 'varchar(25)',
+            name: "name",
+            type: "varchar(25)",
             isUnique: true,
             isNullable: false,
           },
           {
-            name: 'description',
-            type: 'text',
+            name: "description",
+            type: "text",
             isNullable: true,
           },
           {
-            name: 'slug',
-            type: 'varchar',
+            name: "slug",
+            type: "varchar",
             isUnique: true,
             isNullable: true,
           },
           {
-            name: 'created_at',
-            type: 'timestamp',
+            name: "created_at",
+            type: "timestamp",
           },
           {
-            name: 'updated_at',
-            type: 'timestamp',
+            name: "updated_at",
+            type: "timestamp",
           },
         ],
       }),
       true
+    );
+    //-- end of category table --
+    //-- Attribute Table --
+    await queryRunner.createTable(
+      new Table({
+        name: EntityName.ProductAttribute,
+        columns: [
+          {
+            name: "id",
+            type: "integer",
+            isPrimary: true,
+            isGenerated: true,
+            generationStrategy: "increment",
+          },
+          {
+            name: "key",
+            type: "varchar",
+            isNullable: false,
+          },
+          {
+            name: "value",
+            type: "varchar",
+            isNullable: false,
+          },
+        ],
+      })
     );
   }
 
